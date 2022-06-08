@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sub/second_screen.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -25,24 +26,66 @@ class MainScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      TitleCard(),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 15.0),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 20.0),
-                        child: CardCourse(),
-                        decoration: BoxDecoration(
-                          color: Colors.purple[200],
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                    ]),
+                    children: <Widget>[TitleCard(), CardCourseContainer()]),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TitleCardTeacher(),
-              )
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      TitleCardTeacher(),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/teacher.png'),
+                                      Text('Dita')
+                                    ],
+                                  )),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/teacher.png'),
+                                      Text('Dita')
+                                    ],
+                                  )),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/teacher.png'),
+                                      Text('Dita')
+                                    ],
+                                  )),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/teacher.png'),
+                                      Text('Dita')
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ))
             ],
           ),
         ));
@@ -59,7 +102,7 @@ class Header extends StatelessWidget {
           'Find Best',
           style: TextStyle(fontSize: 28),
         ),
-        SizedBox(height: 8.0),
+        SizedBox(height: 2.0),
         Text(
           'Online School',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
@@ -105,42 +148,24 @@ class CardCourse extends StatelessWidget {
               ),
             ),
             SizedBox(width: 20.0),
-            Column(),
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 12.0),
+          margin: EdgeInsets.only(top: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 "UX & Web Design Course",
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 5.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 5.0),
-                  ElevatedButton(
-                    child: Text(
-                      'Join Class',
-                      style: TextStyle(color: Colors.brown[300]),
-                    ),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.yellow[600],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                      minimumSize: Size(5, 41),
-                      // elevation: 0.0,
-                      // shadowColor: Colors.transparent,
-                    ),
-                  ),
-                ],
+                children: [Text('by queen mastery'), JoinButton()],
               )
             ],
           ),
@@ -170,7 +195,11 @@ class TitleCard extends StatelessWidget {
           ],
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return SecondScreen();
+            }));
+          },
           style: ElevatedButton.styleFrom(
             primary: Colors.grey[200],
             shape:
@@ -222,6 +251,57 @@ class TitleCardTeacher extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class JoinButton extends StatefulWidget {
+  @override
+  _JoinButton createState() => _JoinButton();
+}
+
+class _JoinButton extends State<JoinButton> {
+  bool isJoin = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: isJoin
+          ? Text(
+              'has joined Class',
+              style: TextStyle(color: Colors.brown[300]),
+            )
+          : Text(
+              'Join Class',
+              style: TextStyle(color: Colors.brown[300]),
+            ),
+      onPressed: () {
+        setState(() {
+          isJoin = !isJoin;
+        });
+      },
+      style: ElevatedButton.styleFrom(
+        primary: isJoin ? Colors.grey[300] : Colors.yellow[600],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        minimumSize: Size(5, 41),
+        // elevation: 0.0,
+        // shadowColor: Colors.transparent,
+      ),
+    );
+  }
+}
+
+class CardCourseContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15.0),
+      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+      child: CardCourse(),
+      decoration: BoxDecoration(
+        color: Colors.purple[200],
+        borderRadius: BorderRadius.circular(25),
+      ),
     );
   }
 }

@@ -9,9 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wisata Bandung',
+      title: 'Online Course',
       theme: ThemeData(
-        fontFamily: 'Oswald',
+        fontFamily: 'Poppins',
         primarySwatch: Colors.blue,
       ),
       home: MainScreen(),
