@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sub/second_screen.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_sub/model/list_course.dart';
 
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Ini'),
+          title: Text('Online Course'),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -29,63 +31,60 @@ class MainScreen extends StatelessWidget {
                     children: <Widget>[TitleCard(), CardCourseContainer()]),
               ),
               Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    children: [
-                      TitleCardTeacher(),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Image.asset('images/teacher.png'),
-                                      Text('Dita')
-                                    ],
-                                  )),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Image.asset('images/teacher.png'),
-                                      Text('Dita')
-                                    ],
-                                  )),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Image.asset('images/teacher.png'),
-                                      Text('Dita')
-                                    ],
-                                  )),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Image.asset('images/teacher.png'),
-                                      Text('Dita')
-                                    ],
-                                  )),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ))
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: TitleCardTeacher(),
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Image.asset('images/teacher.png'),
+                              Text('Dita')
+                            ],
+                          )),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Image.asset('images/teacher.png'),
+                              Text('Kiran')
+                            ],
+                          )),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Image.asset('images/teacher.png'),
+                              Text('Flo')
+                            ],
+                          )),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Image.asset('images/teacher.png'),
+                              Text('Lili')
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ));
@@ -113,6 +112,8 @@ class Header extends StatelessWidget {
 }
 
 class CardCourse extends StatelessWidget {
+  final ListCourse cour = courseList[0];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -125,7 +126,7 @@ class CardCourse extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'MON',
+                    cour.day,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
@@ -133,7 +134,7 @@ class CardCourse extends StatelessWidget {
                   ),
                   SizedBox(height: 2.0),
                   Text(
-                    '24',
+                    cour.date,
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -156,7 +157,7 @@ class CardCourse extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "UX & Web Design Course",
+                cour.name,
                 style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -165,7 +166,7 @@ class CardCourse extends StatelessWidget {
               SizedBox(height: 5.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('by queen mastery'), JoinButton()],
+                children: [Text(cour.teacher), JoinButton()],
               )
             ],
           ),
@@ -261,12 +262,12 @@ class JoinButton extends StatefulWidget {
 }
 
 class _JoinButton extends State<JoinButton> {
-  bool isJoin = false;
+  final ListCourse cour = courseList[0];
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: isJoin
+      child: cour.joinC
           ? Text(
               'has joined Class',
               style: TextStyle(color: Colors.brown[300]),
@@ -277,11 +278,11 @@ class _JoinButton extends State<JoinButton> {
             ),
       onPressed: () {
         setState(() {
-          isJoin = !isJoin;
+          cour.joinC = !cour.joinC;
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: isJoin ? Colors.grey[300] : Colors.yellow[600],
+        primary: cour.joinC ? Colors.grey[300] : Colors.yellow[600],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         minimumSize: Size(5, 41),
         // elevation: 0.0,
